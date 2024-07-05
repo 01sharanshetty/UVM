@@ -19,7 +19,7 @@ endfunction
 virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
   if(!uvm_config_db#(virtual pkt_interface)::get(this, "", "pkt_vif", pkt_vif))
-      `uvm_fatal("Driver: ", "No vif is found!")
+    `uvm_fatal("In Sequence Driver: ", "No vif is found!")
 endfunction
 
 
@@ -48,6 +48,7 @@ virtual task run_phase(uvm_phase phase);
             pkt_vif.pkt_tx_val<=1; //Enabling transaction
             pkt_vif.pkt_tx_eop<=1; 
             pkt_vip.pkt_tx_data <= isi.frame.pop_back();
+            pkt_vip.pkt_tx_mod <= isi.pkt_tx_mod;
           end
       end
        seq_item_port.item_done();

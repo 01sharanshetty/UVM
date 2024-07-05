@@ -38,8 +38,19 @@ virtual task run_phase(uvm_phase phase);
     forever begin
       seq_item_port.get_next_item(isi);
       @(posedge pkt_vif.pkt_in_dr_cb)
-      isi.frame.pop_back();
-      
+      begin
+        if(isi.frame.size()>1)
+          begin
+          isi.pkt_tx_eop<=0;
+          isi.pkt_tx_data <= isi.frame.pop_back();
+          end
+        else 
+          begin
+            isi.pkt_tx_eop<=1;
+            isi.pkt_tx_data <= isi.frame.pop_back();
+          end
+        
+      end
       if(fsi.i_wren == 1 && fsi.i_rden == 0) begin
           @(posedge vif.mp_driver.clk)
     		vif.mp_driver.clk_b_driver.i_wren <= fsi.i_wren;

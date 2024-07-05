@@ -1,6 +1,6 @@
 class xgemac_driver extends uvm_driver #(in_sequence_item);
 
-virtual interface_fifo vif; //declaring the interface handle as virtual
+virtual xgemac_interface vif; //declaring the interface handle as virtual
   
 in_sequence_item isi; //sequence_item handle
  

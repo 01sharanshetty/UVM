@@ -6,6 +6,8 @@ class in_driver extends uvm_driver #(in_sequence_item);
 virtual pkt_interface pkt_vif; //declaring the packet interface handle as virtual
   
 in_sequence_item isi; //sequence_item handle
+
+int pkt_count=0;
  
 `uvm_component_utils(in_driver)
  
@@ -44,6 +46,11 @@ virtual task run_phase(uvm_phase phase);
           isi.pkt_tx_val<=1;
           isi.pkt_tx_eop<=0;
           isi.pkt_tx_data <= isi.frame.pop_back();
+          pkt_count<=pkt_count+1;
+              if(pkt_count>0)
+                  isi.pkt_tx_sop<=1;
+              else
+                  isi.pkt_tx_sop<=0;
           end
         else 
           begin

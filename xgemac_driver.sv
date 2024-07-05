@@ -1,3 +1,6 @@
+`ifndef in_driver_INCLUDED_
+`define PKT_INTERFACE_INCLUDED_
+
 class in_driver extends uvm_driver #(in_sequence_item);
 
 virtual pkt_interface pkt_vif; //declaring the packet interface handle as virtual
@@ -17,8 +20,6 @@ virtual function void build_phase(uvm_phase phase);
       `uvm_fatal("Driver: ", "No vif is found!")
 endfunction
 
-
-
 //we need to pop the 64 bit values from frame and we need to drive each
      //logic 
 
@@ -31,8 +32,13 @@ virtual task run_phase(uvm_phase phase);
     vif.mp_driver.clk_b_driver.i_wrdata <= 0;
    
       end
+
+//  EDITING HERE 
+  
     forever begin
-      seq_item_port.get_next_item(fsi);
+      seq_item_port.get_next_item(isi);
+
+      isi.frame.pop_back();
       
       if(fsi.i_wren == 1 && fsi.i_rden == 0) begin
           @(posedge vif.mp_driver.clk)

@@ -29,6 +29,8 @@ virtual task run_phase(uvm_phase phase);
   
     forever begin
       seq_item_port.get_next_item(isi);
+      if(!pkt_vif.pkt_tx_full)
+        begin
       @(posedge pkt_vif.pkt_in_dr_cb)
       begin
         if(isi.frame.size()>1)
@@ -51,6 +53,8 @@ virtual task run_phase(uvm_phase phase);
             pkt_vip.pkt_tx_mod <= isi.pkt_tx_mod;
           end
       end
+        end
+      
        seq_item_port.item_done();
     end
    

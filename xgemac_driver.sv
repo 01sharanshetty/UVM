@@ -37,7 +37,7 @@ virtual task run_phase(uvm_phase phase);
   
     forever begin
       seq_item_port.get_next_item(isi);
-
+      @(posedge pkt_vif.pkt_in_dr_cb)
       isi.frame.pop_back();
       
       if(fsi.i_wren == 1 && fsi.i_rden == 0) begin

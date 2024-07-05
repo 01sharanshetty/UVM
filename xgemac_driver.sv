@@ -41,11 +41,13 @@ virtual task run_phase(uvm_phase phase);
       begin
         if(isi.frame.size()>1)
           begin
+          isi.pkt_tx_val<=1;
           isi.pkt_tx_eop<=0;
           isi.pkt_tx_data <= isi.frame.pop_back();
           end
         else 
           begin
+            isi.pkt_tx_val<=1;
             isi.pkt_tx_eop<=1;
             isi.pkt_tx_data <= isi.frame.pop_back();
           end

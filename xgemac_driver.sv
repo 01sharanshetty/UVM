@@ -1,5 +1,5 @@
-`ifndef in_driver_INCLUDED_
-`define PKT_INTERFACE_INCLUDED_
+`ifndef IN_DRIVER_INCLUDED_
+`define IN_DRIVER_INCLUDED_
 
 class in_driver extends uvm_driver #(in_sequence_item);
 
@@ -56,3 +56,5 @@ virtual task run_phase(uvm_phase phase);
 endtask
    
 endclass
+
+`endif
